@@ -19,4 +19,3 @@ nltk
 # streamlit run {file name}  Axios error 403 
 # streamlit run pdfconverse.py --server.enableXsrfProtection false
 
-pip install transformers torch streamlit
