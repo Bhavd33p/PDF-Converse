@@ -18,9 +18,9 @@ Install the required dependencies:<br>
 ~ ollama run mistral<br>
 
 # Usage :
-Run the Application by 
-1. streamlit run pdfconverse.py 
-if Axios error 403 occurs upon uploading pdf use this : streamlit run pdfconverse.py --server.enableXsrfProtection false
+Run the Application by <br>
+1. streamlit run pdfconverse.py <br>
+if Axios error 403 occurs upon uploading pdf use this : streamlit run pdfconverse.py --server.enableXsrfProtection false <br>
 2. Upload your PDF file using upload pdf section in sidebar.
 3. Ask a query about the PDF content in the chat options.
 4. The application will display the answer based on the uploaded PDF file.
