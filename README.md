@@ -8,9 +8,7 @@ The PDF Converse tool can be used to upload PDFs and effectively answer all quer
 4. Building the knowledge base: The text chunks and embeddings are stored in Chroma, leveraging FAISS for efficient similarity search, enhancing retrieval accuracy. 
 
 # Installation :
-1. Clone the repository:<br>
-git clone https://github.com/Bhavd33p/PDF-Converse.git<br>
-Install the required dependencies:<br>
+1. Clone the repository: git clone https://github.com/Bhavd33p/PDF-Converse.git<br>
 2. pip install -r requirements.txt.<br>
 3. After Installing all dependencies you need to install ollama from https://ollama.com/ for Command Line <br>
 4. Then use these command to fetch the model : <br>
