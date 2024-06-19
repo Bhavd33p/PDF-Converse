@@ -82,7 +82,6 @@ def main():
                 progress_bar.progress(66)
                 time.sleep(1)
 
-                # Edited prompt to generate three alternative questions
                 QUERY_PROMPT = PromptTemplate(
                     input_variables=["question"],
                     template="""As your AI language assistant, I'll create three distinct variations of your query to find relevant documents from a vector database. By offering diverse perspectives, I aim to help you overcome limitations of distance-based similarity search methods. Please list these alternative questions separately.
