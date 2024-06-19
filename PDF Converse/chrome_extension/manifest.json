@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "PDF Converse Extension",
+  "description": "Extension for PDF Converse app.",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "http://localhost:5001/process_pdfs"
+  ],
+  "icons": {
+    "48": "./icons/icon48.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

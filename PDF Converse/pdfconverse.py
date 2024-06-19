@@ -74,25 +74,19 @@ def main():
                 progress_bar = st.progress(0)
                 time.sleep(1)
 
-                # Extract text from PDF files
                 text = extract_text_from_pdfs(pdf_files)
                 progress_bar.progress(33)
                 time.sleep(1)
                 
-                # Process the extracted text
                 vector_db, llm = process_text_chunks(text)
                 progress_bar.progress(66)
                 time.sleep(1)
 
-                # Perform retrieval and answer the query
+                # Edited prompt to generate three alternative questions
                 QUERY_PROMPT = PromptTemplate(
                     input_variables=["question"],
-                    template="""You are an AI language model assistant. Your task is to generate five
-                    different versions of the given user question to retrieve relevant documents from
-                    a vector database. By generating multiple perspectives on the user question, your
-                    goal is to help the user overcome some of the limitations of the distance-based
-                    similarity search. Provide these alternative questions separated by newlines.
-                    Original question: {question}""",
+                    template="""As your AI language assistant, I'll create three distinct variations of your query to find relevant documents from a vector database. By offering diverse perspectives, I aim to help you overcome limitations of distance-based similarity search methods. Please list these alternative questions separately.
+                    Original query: {question}""",
                 )
                 retriever = MultiQueryRetriever.from_llm(
                     vector_db.as_retriever(), 
@@ -100,7 +94,6 @@ def main():
                     prompt=QUERY_PROMPT
                 )
 
-                # RAG prompt
                 template = f"""Answer the question based ONLY on the following context:
                 {{context}}
                 Question: {query}"""
@@ -114,8 +107,6 @@ def main():
 
                 progress_bar.progress(100)
                 time.sleep(1)
-
-                # Get the answer
                 st.write("Answer:", chain.invoke(query))
 
                 vector_db.delete_collection()

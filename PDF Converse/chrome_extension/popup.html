@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Converse Extension</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 400px;
+            height: 400px; 
+            margin: 0; 
+            display: flex; 
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px; 
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateZ(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateZ(0);
+            }
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"], input[type="text"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box; 
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"]:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+            transition: max-height 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #result.empty {
+            max-height: 0;
+            padding: 0;
+            border: none;
+            overflow: hidden;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                max-width: 100%;
+            }
+            input[type="file"], input[type="text"], button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>PDF Converse 📚</h1>
+    <div class="container">
+        <input type="file" id="pdf_files" multiple>
+        <br><br>
+        <input type="text" id="query" placeholder="Enter your query" autocomplete="off">
+        <br><br>
+        <button id="process">Query PDFs</button>
+        <br><br>
+        <div id="result"></div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
