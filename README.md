@@ -23,6 +23,9 @@ if Axios error 403 occurs upon uploading pdf use this : streamlit run pdfconvers
 3. Ask a query about the PDF content in the chat options.
 4. The application will display the answer based on the uploaded PDF file.
 
+# Extension 
+The extension version is also available  , you can use it by uploading chrome_extension folder to developer mode .
+
 # Note 
 There are two python files: <br>
 ~ pdfconverse.py {This is best model for this PS and application will run on this}. <br>
