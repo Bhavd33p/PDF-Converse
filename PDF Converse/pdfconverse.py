@@ -21,14 +21,14 @@ def extract_text_from_pdfs(uploaded_pdfs):
 def process_text_chunks(text_data):
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
     chunks = splitter.split_text(text_data)
-    vector_database = Chroma.from_texts(
+    vector_store = Chroma.from_texts(
         texts=chunks, 
         embedding=OllamaEmbeddings(model="nomic-embed-text", show_progress=True),
         collection_name="document-collection"
     )
     model_name = "mistral"
     language_model = ChatOllama(model=model_name)
-    return vector_database, language_model
+    return vector_store, language_model
 
 def main():
     st.set_page_config(page_title="PDF Converse 📚", page_icon="📚")
@@ -74,11 +74,11 @@ def main():
                 progress_bar = st.progress(0)
                 time.sleep(1)
 
-                text = extract_text_from_pdfs(pdf_files)
+                combined_text = extract_text_from_pdfs(pdf_files)
                 progress_bar.progress(33)
                 time.sleep(1)
                 
-                vector_db, llm = process_text_chunks(text)
+                vector_store, language_model = process_text_chunks(combined_text)
                 progress_bar.progress(66)
                 time.sleep(1)
 
@@ -88,19 +88,19 @@ def main():
                     Original query: {question}""",
                 )
                 retriever = MultiQueryRetriever.from_llm(
-                    vector_db.as_retriever(), 
-                    llm,
+                    vector_store.as_retriever(), 
+                    language_model,
                     prompt=QUERY_PROMPT
                 )
 
-                template = f"""Answer the question based ONLY on the following context:
-                {{context}}
+                ANSWER_PROMPT_TEMPLATE = f"""Based on the following context, answer the question as accurately as possible:
+                Context: {{context}}
                 Question: {query}"""
-                prompt = ChatPromptTemplate.from_template(template)
+                prompt = ChatPromptTemplate.from_template(ANSWER_PROMPT_TEMPLATE)
                 chain = (
                     {"context": retriever, "question": RunnablePassthrough()}
                     | prompt
-                    | llm
+                    | language_model
                     | StrOutputParser()
                 )
 
@@ -108,7 +108,7 @@ def main():
                 time.sleep(1)
                 st.write("Answer:", chain.invoke(query))
 
-                vector_db.delete_collection()
+                vector_store.delete_collection()
         else:
             st.warning("Please upload PDF files.")
 
